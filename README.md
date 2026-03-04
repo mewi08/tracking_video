@@ -1,41 +1,60 @@
-# Video Tracking Web Platform (PHP + JavaScript)
+# 🎬 Video Tracking Platform (PHP + JavaScript + MySQL)
 
 ## 📌 Description
 
-This project is a simple video tracking web platform built with **PHP**, **JavaScript**, and **MySQL**.
+Video Tracking Platform is a lightweight web application built with **PHP 8+, MySQL, and Vanilla JavaScript** that allows tracking student interaction with course videos.
 
-It allows:
-
-* Students to watch course videos
-* Automatic tracking of video progress
-* Storing viewing data in a database
-* Integration with external platforms (e.g., Moodle via external link)
+The system stores viewing progress, completion percentage, and activity history.  
+It can be integrated with platforms like Moodle via External URL or LTI.
 
 ---
 
 ## 🚀 Features
 
-* Video player with HTML5
-* Real-time time tracking
-* Stores:
+### 🎓 Student Side
 
-  * user_id
-  * video_id
-  * watched time
-  * completion status
-  * last access date
-* Simple API endpoint built in PHP
-* Ready for deployment on hosting services or Vercel (with PHP support)
+- HTML5 video player
+- Real-time progress tracking
+- Automatic saving of watched time
+- Resume playback from last position
+- Completion detection based on percentage
+
+### 👨‍💼 Admin Side
+
+- Video upload
+- Enable / Disable videos
+- View tracking records
+- Monitor:
+  - Student ID
+  - Student name (if available)
+  - Video title
+  - Percentage watched
+  - Status (in_progress / completed)
+  - Started at
+  - Completed at
+  - Last activity
 
 ---
 
-## 🛠 Technologies Used
+## 🛠 Tech Stack
 
-* PHP 8+
-* JavaScript (Vanilla JS)
-* MySQL
-* HTML5 Video API
-* CSS3
+- PHP 8+
+- MySQL
+- Composer
+- Vanilla JavaScript
+- HTML5 Video API
+- CSS3
+- MVC Architecture (Controllers / Models / Views)
+
+---
+
+## 📋 Requirements
+
+- PHP >= 8.0
+- MySQL >= 5.7
+- Composer
+- Apache or Nginx
+- XAMPP (recommended for local development)
 
 ---
 
@@ -101,8 +120,12 @@ tracking/
 git clone https://github.com/mewi08/tracking.git
 cd tracking
 ```
+### 2️⃣ Install dependencies
 
-### 2️⃣ Configure database
+```
+composer install
+```
+### 3️⃣ Configure database
 
 Create a `.env` file in the root of the project:
 
@@ -122,7 +145,7 @@ DB_PASS=
 
 Do NOT edit credentials inside Connection.php.
 
-### 3️⃣ Start local server
+### 4️⃣ Start local server
 
 If using XAMPP:
 
@@ -138,20 +161,25 @@ http://localhost/tracking/
 
 ## 🔄 How Tracking Works
 
-1. User loads the page
-2. Selects a video
-3. JavaScript listens for:
+1. Student loads a video
+2. JavaScript listens to videos events:
 
    * `timeupdate`
    * `pause`
    * `ended`
-4. When the video finishes, JS sends a POST request to:
+3. A POST request is sent to:
 
 ```
-/api/save_watch_time.php
+/app/api/save_watch_time.php
 ```
 
-5. PHP saves data into MySQL
+4. PHP saves data into MySQL
+   * `Watched time`
+   * `Percentage`
+   * `Status`
+   * `Timestamps`
+
+5. Admin can view tracking data in dashboard.
 
 ---
 
@@ -162,29 +190,17 @@ This system can be integrated with Moodle by:
 
 * Adding it as an External URL
 * Passing `user_id` as a GET parameter
-* Storing tracking information linked to Moodle users
+* Or integrating via LTI (recommended)
 
 Example:
 
 ```
 https://yourdomain.com/index.php?user_id=123
 ```
-
----
-
-## 📈 Future Improvements
-
-* Progress percentage tracking
-* Dashboard with reports
-* Video completion validation (e.g., 80% watched rule)
-* xAPI integration
-* Role-based access (admin/student)
+Tracking data will be linked to the provided user.
 
 ---
 
 ## 📄 License
 
 This project is open-source and free to use for educational purposes.
-
-```
-```
